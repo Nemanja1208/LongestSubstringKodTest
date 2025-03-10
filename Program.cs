@@ -40,10 +40,23 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+
+            HashSet<char> charSet = new HashSet<char>(); // Håller koll på unika tecken
+            int left = 0, maxLength = 0;
+
+            for (int right = 0; right < s.Length; right++)
+            {
+                while (charSet.Contains(s[right])) // Om tecknet redan finns, flytta `left`
+                {
+                    charSet.Remove(s[left]);
+                    left++;
+                }
+
+                charSet.Add(s[right]); // Lägg till nytt tecken
+                maxLength = Math.Max(maxLength, right - left + 1);
+            }
+
+            return maxLength; 
         }
-        //-----------------------------------------------------
     }
 }
