@@ -26,7 +26,7 @@
 
             foreach (var s in testStrings)
             {
-                int result = LongestUniqueSubstringLength(s); // TODO: Implement method
+                int result = LongestUniqueSubstringLength(s); // Call method with string 's'
 
                 Console.WriteLine($"Input: \"{s}\" -> Longest unique substring length: {result}");
             }
@@ -36,14 +36,32 @@
             Console.ReadKey();
         }
 
-        // TODO: Implement this method
+        // Method to find the longest unique substring length
         //-----------------------------------------------------
-        public static int LongestUniqueSubstringLength(string s)
+        public static int LongestUniqueSubstringLength(string input)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            if (string.IsNullOrEmpty(input))
+                return 0;
+
+            int maxLength = 0;
+            List<char> currentSubstring = new List<char>(); // To track unique characters in the current substring
+
+            for (int end = 0; end < input.Length; end++)
+            {
+                // If the character is already in the list, remove characters from the start until it's unique
+                while (currentSubstring.Contains(input[end]))
+                {
+                    currentSubstring.RemoveAt(0); // Remove the first character to make space
+                }
+
+                // Add the current character to the list
+                currentSubstring.Add(input[end]);
+
+                // Update maxLength if the current substring is longer
+                maxLength = Math.Max(maxLength, currentSubstring.Count);
+            }
+
+            return maxLength;
         }
-        //-----------------------------------------------------
     }
 }
