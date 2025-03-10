@@ -40,6 +40,9 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
+            // Om strängen är tom så returnerar vi 0 direkt
+            if (s.Length == 0) return 0;
+
             // Deklarera variabel som håller längden som vi sen returnerar
             int maxLength = 0;
 
