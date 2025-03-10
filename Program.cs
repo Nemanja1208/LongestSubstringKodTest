@@ -21,29 +21,41 @@
                 "a b c d e"      // Characters separated by spaces                  -> 3
             };
 
-            Console.WriteLine("=== Longest Unique Substring Challenge ===");
-            Console.WriteLine();
-
-            foreach (var s in testStrings)
             {
-                int result = LongestUniqueSubstringLength(s); // TODO: Implement method
+                Console.WriteLine("Enter a string:");
+                string input = Console.ReadLine();
 
-                Console.WriteLine($"Input: \"{s}\" -> Longest unique substring length: {result}");
+                int result = LongestUniqueSubstringLength(input);
+                Console.WriteLine($"Longest unique character sequence length: {result}");
+            }
+            // TODO: Implement this method
+            //-----------------------------------------------------
+            static int LongestUniqueSubstringLength(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                Console.WriteLine("Error: Input cannot be empty.");
+                return 0;
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
-        }
+            HashSet<char> seenChars = new HashSet<char>();
+            int maxLength = 0, left = 0;
 
-        // TODO: Implement this method
-        //-----------------------------------------------------
-        public static int LongestUniqueSubstringLength(string s)
-        {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            for (int right = 0; right < input.Length; right++)
+            {
+                while (seenChars.Contains(input[right]))
+                {
+                    seenChars.Remove(input[left]);
+                    left++;
+                }
+
+                seenChars.Add(input[right]);
+                maxLength = Math.Max(maxLength, right - left + 1);
+            }
+
+            return maxLength;
         }
         //-----------------------------------------------------
     }
+}
 }
