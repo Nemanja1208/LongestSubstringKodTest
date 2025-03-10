@@ -53,17 +53,21 @@
                  windowIndex.RemoveAt(0); // Removes same repeated Char
                 }
 
-                windowIndex.Add(c); // adds then a character to the string until it founds a dupplicate.
+                windowIndex.Add(c); // adds then a character to the string until it founds a 
 
-              //  maxLength = Math.Max(maxLength, windowIndex.Count); // Accounts max length of chars. 
+               // maxLength = Math.Max(maxLength, windowIndex.Count); // Accounts max length of chars. 
+                if (windowIndex.Count > maxLength)
+                {
+                maxLength = windowIndex.Count;
+                }
                 
             }
 
             return maxLength;
-                   
+
             // Currently returns -1 so you know it's not implemented yet
             // Replace this logic with your solution
-            
+
         }
         //-----------------------------------------------------
     }
