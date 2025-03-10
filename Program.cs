@@ -1,4 +1,6 @@
-﻿namespace LongestSubstringKodTest
+﻿using System.Runtime.Serialization.Formatters;
+
+namespace LongestSubstringKodTest
 {
     public class Program
     {
@@ -40,9 +42,36 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            if (string.IsNullOrEmpty(s)) return 0;
+
+            int maxLength = 0; // håller koll på längden av den längsta unika sekvensen hittills
+            int left = 0;  //pekar ut det aktuella fönstret i strängen som innehåller unika tecken
+
+            //Dictionary används för att hålla koll på senaste index av varje tecken
+            Dictionary<char, int> seenChars = new Dictionary<char, int>();
+
+            for (int right = 0; right < s.Length; right++)
+            {
+                char currentChar = s[right]; //// Hämta tecknet vid positionen 'right' i strängen för att kontrollera det
+
+                // Om tecknet redan finns i dictionaryt och är innanför aktuellt fönster
+                if (seenChars.ContainsKey(currentChar) && seenChars[currentChar] >= left)
+                {
+                    // Flytta vänstra pekaren precis efter den förra upprepningen
+                    left = seenChars[currentChar] + 1;
+                }
+
+                // Uppdatera indexet för nuvarande tecken
+                seenChars[currentChar] = right;
+
+                // Beräkna längden på nuvarande unika substring och uppdatera max om det är större
+                int currentLength = right - left + 1;
+                if (currentLength > maxLength)
+                    maxLength = currentLength;
+            }
+
+            return maxLength;
+
         }
         //-----------------------------------------------------
     }
