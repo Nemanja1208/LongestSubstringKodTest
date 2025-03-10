@@ -59,5 +59,6 @@
 
             return Math.Max(maxLength, currentLength); // Returnera största längden hittad
         }
+        //HEJ
     }
 }
