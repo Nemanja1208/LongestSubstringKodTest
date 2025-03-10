@@ -40,10 +40,24 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            int maxLength = 0;
+            int currentLength = 0;
+            List<char> seen = new List<char>();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (seen.Contains(s[i])) // Om vi hittar en dubblett
+                {
+                    maxLength = Math.Max(maxLength, currentLength); // Uppdatera max längd
+                    seen.Clear(); // Nollställ
+                    currentLength = 0; // Börja om
+                }
+
+                seen.Add(s[i]); // Lägg till nytt tecken
+                currentLength++; // Öka räkning
+            }
+
+            return Math.Max(maxLength, currentLength); // Returnera största längden hittad
         }
-        //-----------------------------------------------------
     }
 }
