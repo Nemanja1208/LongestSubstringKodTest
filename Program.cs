@@ -39,11 +39,38 @@
         // TODO: Implement this method
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
+
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+                if (string.IsNullOrEmpty(s)) return 0;
+
+                Dictionary<char, int> charIndex = new Dictionary<char, int>(); // Sparar tecknens senaste position
+                int left = 0, maxLength = 0;
+
+                for (int right = 0; right < s.Length; right++)
+                {
+                    if (charIndex.ContainsKey(s[right]) && charIndex[s[right]] >= left)
+                    {
+                        left = charIndex[s[right]] + 1;  // Flytta left förbi upprepat tecken
+                    }
+
+                    charIndex[s[right]] = right;  // Uppdatera senaste index för tecknet
+                    maxLength = Math.Max(maxLength, right - left + 1);  // Uppdatera max längd
+                }
+
+                return maxLength;
         }
-        //-----------------------------------------------------
+
+            static void Main()
+            {
+                Console.WriteLine(LongestUniqueSubstringLength("abcabcbb")); // Output: 3
+                Console.WriteLine(LongestUniqueSubstringLength("bbbb"));     // Output: 1
+                Console.WriteLine(LongestUniqueSubstringLength("pwwkew"));   // Output: 3
+                Console.WriteLine(LongestUniqueSubstringLength("AbCa"));     // Output: 4
+                Console.WriteLine(LongestUniqueSubstringLength(""));         // Output: 0
+                Console.WriteLine(LongestUniqueSubstringLength("abc def!")); // Output: 8
+                Console.WriteLine(LongestUniqueSubstringLength("dvdf"));     // Output: 3
+                Console.WriteLine(LongestUniqueSubstringLength("Hello, World!")); // Output: 8
+            }
     }
+
 }
