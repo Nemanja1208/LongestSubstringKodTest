@@ -40,9 +40,19 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            HashSet<char> seen = new();
+            int left = 0, maxLength = 0;
+
+            for (int right = 0; right < s.Length; right++)
+            {
+                while (seen.Contains(s[right]))
+                    seen.Remove(s[left++]);
+
+                seen.Add(s[right]);
+                maxLength = Math.Max(maxLength, right - left + 1);
+            }
+
+            return maxLength;
         }
         //-----------------------------------------------------
     }
