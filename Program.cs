@@ -40,36 +40,27 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            if (string.IsNullOrEmpty(s)) return 0; // Index 4
+            if (string.IsNullOrEmpty(s)) return 0; //  4th array if its empty array then it returns 0;
 
-            List<char> windowIndex = new List<char>();
+            List<char> windowIndex = new List<char>(); // The Chars. 
 
-            int maxLength = 0;
+            int maxLength = 0; // Maxiumum length of chars.
 
             foreach (var c in s)
             {
-                while (windowIndex.Contains(c))
+                while (windowIndex.Contains(c)) // If it contains same Character
                 {
-
-                 windowIndex.RemoveAt(0);
+                 windowIndex.RemoveAt(0); // Removes same repeated Char
                 }
 
-                windowIndex.Add(c);
+                windowIndex.Add(c); // adds then a character to the string until it founds a dupplicate.
 
-                maxLength = Math.Max(maxLength, windowIndex.Count);
-
+              //  maxLength = Math.Max(maxLength, windowIndex.Count); // Accounts max length of chars. 
+                
             }
 
             return maxLength;
-
-            
-
-            
-
-
-                
-
-            
+                   
             // Currently returns -1 so you know it's not implemented yet
             // Replace this logic with your solution
             
