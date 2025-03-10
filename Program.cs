@@ -40,9 +40,34 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            //kollar först om strängen är tom
+            if (string.IsNullOrEmpty(s))
+            {
+                return 0; // Om strängen är tom, returnera 0
+            }
+
+            //Skapa en dictionary för att spara varje unik karaktär och dess index
+            Dictionary<char, int> charIndexMap = new Dictionary<char, int>(); 
+            int maxLength = 0; //Håller reda på den längsta unika delsträngen vi hittar
+            int left = 0; // Håller koll på startpositionen för aktuella delsträngen
+
+            // Gå igenom varje tecken i strängen
+            for (int right = 0; right < s.Length; right++)
+            {
+                if (charIndexMap.ContainsKey(s[right]))
+                {
+                    // Om tecknet finns, flytta left förbi senaste positionen där tecknet fanns
+                    left = Math.Max(charIndexMap[s[right]] + 1, left);
+                }
+
+                // Uppdatera indexet för det aktuella tecknet
+                charIndexMap[s[right]] = right;
+
+                // Uppdatera maxlängden på den unika delsträngen
+                maxLength = Math.Max(maxLength, right - left + 1);
+            }
+
+            return maxLength;
         }
         //-----------------------------------------------------
     }
