@@ -36,14 +36,32 @@
             Console.ReadKey();
         }
 
-        // TODO: Implement this method
-        //-----------------------------------------------------
+        // Method to find the length of the longest substring with unique characters
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            // Edge case: If the string is empty, return 0
+            if (string.IsNullOrEmpty(s)) return 0;
+
+            int maxLength = 0; // Stores the maximum length found
+            int left = 0; // Left pointer of the sliding window
+            HashSet<char> seen = new HashSet<char>(); // Stores unique characters in the window
+
+            // Iterate through the string with a right pointer
+            for (int right = 0; right < s.Length; right++)
+            {
+                // If a duplicate character is found, move the left pointer until it's unique
+                while (seen.Contains(s[right]))
+                {
+                    seen.Remove(s[left]); // Remove character at left pointer
+                    left++; // Move left pointer forward
+                }
+
+                seen.Add(s[right]); // Add the new character to the set
+                maxLength = Math.Max(maxLength, right - left + 1); // Update max length if needed
+            }
+
+            return maxLength; // Return the longest unique substring length
         }
-        //-----------------------------------------------------
     }
 }
+
