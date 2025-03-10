@@ -40,9 +40,39 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
+            if (string.IsNullOrEmpty(s)) return 0; // Index 4
+
+            List<char> windowIndex = new List<char>();
+
+            int maxLength = 0;
+
+            foreach (var c in s)
+            {
+                while (windowIndex.Contains(c))
+                {
+
+                 windowIndex.RemoveAt(0);
+                }
+
+                windowIndex.Add(c);
+
+                maxLength = Math.Max(maxLength, windowIndex.Count);
+
+            }
+
+            return maxLength;
+
+            
+
+            
+
+
+                
+
+            
             // Currently returns -1 so you know it's not implemented yet
             // Replace this logic with your solution
-            return -1;
+            
         }
         //-----------------------------------------------------
     }
