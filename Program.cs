@@ -40,9 +40,37 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            // Deklarera variabel som håller längden som vi sen returnerar
+            int maxLength = 0;
+
+            // Deklarera variabel som håller positionen för vänster sida av substringen
+            int left = 0;
+
+            // Deklarera en HashSet som håller unika tecken.
+            HashSet<char> uniqueChars = new HashSet<char>();
+
+            // Loopar igenom hela strängen
+            for (int right = 0; right < s.Length; right++)
+            {
+
+                // Om listan med unika tecken innehåller tecknet på position right
+                while (uniqueChars.Contains(s[right]))
+                {
+                    // Då tar vi bort tecknet på position left och ökar left med 1
+                    uniqueChars.Remove(s[left]);
+                    left++;
+                }
+
+                // Lägger till tecknet på position right i listan med unika tecken
+                uniqueChars.Add(s[right]);
+
+                // Uppdaterar längden på den längsta unika substringen
+                maxLength = Math.Max(maxLength, right - left + 1);
+            }
+
+            // Returnerar längden på den längsta unika substringen
+            return maxLength;
+
         }
         //-----------------------------------------------------
     }
