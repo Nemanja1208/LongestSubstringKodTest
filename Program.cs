@@ -40,9 +40,36 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            // If the string is empty, return 0 immediately
+            if (string.IsNullOrEmpty(s)) return 0;
+
+            // Dictionary to keep track of the last seen index of each character
+            Dictionary<char, int> charIndex = new Dictionary<char, int>();
+
+            int maxLength = 0; // Stores the length of the longest found substring
+            int left = 0;      // The starting position of our "window"
+
+            // Iterate through each character in the string
+            for (int right = 0; right < s.Length; right++)
+            {
+                char currentChar = s[right]; // The character we're currently checking
+
+                // If the character is already in the dictionary AND within the current window
+                if (charIndex.ContainsKey(currentChar) && charIndex[currentChar] >= left)
+                {
+                    // Move the left boundary past the last occurrence of the duplicate
+                    left = charIndex[currentChar] + 1;
+                }
+
+                // Update the character's last seen position
+                charIndex[currentChar] = right;
+
+                // Calculate the current substring length and update maxLength if it's the longest so far
+                maxLength = Math.Max(maxLength, right - left + 1);
+            }
+
+            // Return the length of the longest unique substring
+            return maxLength;
         }
         //-----------------------------------------------------
     }
