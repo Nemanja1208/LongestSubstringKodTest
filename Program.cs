@@ -38,11 +38,26 @@
 
         // TODO: Implement this method
         //-----------------------------------------------------
+        
         public static int LongestUniqueSubstringLength(string s)
         {
-            // Currently returns -1 so you know it's not implemented yet
-            // Replace this logic with your solution
-            return -1;
+            if (s.Length == 0) return 0; // Om strängen är tom, returnera 0
+
+            List<char> currentSubstring = new List<char>();
+            int maxLength = 0;
+
+            foreach (char c in s)
+            {
+                if (currentSubstring.Contains(c)) // Om tecknet redan finns, ta bort fram tills det inte gör det
+                {
+                    currentSubstring.RemoveRange(0, currentSubstring.IndexOf(c) + 1);
+                }
+
+                currentSubstring.Add(c); // Lägg till tecknet i listan
+                maxLength = Math.Max(maxLength, currentSubstring.Count); // Uppdatera maxlängden
+            }
+
+            return maxLength;
         }
         //-----------------------------------------------------
     }
