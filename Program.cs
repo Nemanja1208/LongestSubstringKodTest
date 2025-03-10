@@ -1,4 +1,6 @@
-﻿namespace LongestSubstringKodTest
+﻿using System.Reflection.PortableExecutable;
+
+namespace LongestSubstringKodTest
 {
     public class Program
     {
@@ -40,9 +42,28 @@
         //-----------------------------------------------------
         public static int LongestUniqueSubstringLength(string s)
         {
+
             // Currently returns -1 so you know it's not implemented yet
             // Replace this logic with your solution
-            return -1;
+            List<char> charList = new List<char>();
+
+            int maxLength = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                charList.Clear();
+                for (int j = i; j < s.Length; j++)
+                {
+                    if (charList.Contains(s[j]))
+                    {
+                        break;
+                    }
+                    charList.Add(s[j]);
+                    maxLength = Math.Max(maxLength, charList.Count);
+                }
+            }
+
+            return maxLength;
         }
         //-----------------------------------------------------
     }
